@@ -13,13 +13,17 @@ git push -u origin master
 '''
 
 # Actualizar Repo de Github
-# git add .
-# git commit -m "Se actualizan las variables de entorno"
-# git push origin master
+'''
+git add .
+git commit -m "Se actualizan las variables de entorno"
+git push origin master
+'''
+
 
 # En Render
 # agregar en variables de entorno
 # PYTHON_VERSION = 3.9.12
+
 
 ################################################
 
@@ -66,8 +70,8 @@ def main():
     st.set_page_config(
         page_title="El OmniChat",
         page_icon="🤖",
-        layout="centered",
-        initial_sidebar_state="expanded",
+        layout="wide",  # Cambiar layout a wide
+        initial_sidebar_state="collapsed",  # Ocultar barra lateral por defecto
     )
 
     st.markdown("<h1 style='text-align: center; color: #6ca395;'>🤖 <i>OmniBot</i> 💬</h1>", unsafe_allow_html=True)
@@ -153,6 +157,8 @@ def main():
             transcript = client.audio.transcriptions.create(model="whisper-1", file=("audio.wav", speech_input))
             audio_prompt = transcript.text
 
+    tooltip_text = "Por ejemplo, puedes preguntar: '¿Cuál es la capital de Francia?', '¿Cuántos años tiene la Tierra?' o 'Cuéntame un chiste'."
+
     if prompt := st.chat_input("¡Hola! Pregúntame lo que quieras...") or audio_prompt:
         st.session_state.messages.append({
             "role": "user",
@@ -178,6 +184,5 @@ def main():
             </audio>
             """
             st.markdown(audio_html, unsafe_allow_html=True)
-
 if __name__ == "__main__":
     main()

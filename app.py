@@ -34,9 +34,8 @@ from audio_recorder_streamlit import audio_recorder
 import base64
 from io import BytesIO
 
-dotenv.load_dotenv()
-
 # Cargar la clave de la API desde el archivo .env
+dotenv.load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Función para consultar y transmitir la respuesta del LLM
@@ -72,16 +71,17 @@ def main():
         page_title="El OmniChat",
         page_icon="🤖",
         layout="centered",
-        initial_sidebar_state="expanded",
+        initial_sidebar_state="collapsed",
     )
 
     st.markdown("<h1 style='text-align: center; color: #6ca395;'>🤖 <i>El OmniChat</i> 💬</h1>", unsafe_allow_html=True)
 
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    client = OpenAI(api_key=OPENAI_API_KEY)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
+    # Mostrar mensajes anteriores
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             for content in message["content"]:

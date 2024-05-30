@@ -36,6 +36,9 @@ from io import BytesIO
 
 dotenv.load_dotenv()
 
+# Cargar la clave de la API desde el archivo .env
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 # Función para consultar y transmitir la respuesta del LLM
 def stream_llm_response(client, model_params):
     response_message = ""

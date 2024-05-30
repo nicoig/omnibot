@@ -70,11 +70,11 @@ def main():
     st.set_page_config(
         page_title="El OmniChat",
         page_icon="🤖",
-        layout="wide",  # Cambiar layout a wide
-        initial_sidebar_state="collapsed",  # Ocultar barra lateral por defecto
+        layout="centered",
+        initial_sidebar_state="expanded",
     )
 
-    st.markdown("<h1 style='text-align: center; color: #6ca395;'>🤖 <i>OmniBot</i> 💬</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #6ca395;'>🤖 <i>El OmniChat</i> 💬</h1>", unsafe_allow_html=True)
 
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
@@ -99,8 +99,7 @@ def main():
             "gpt-4-32k",
         ], index=0)
 
-        with st.popover("⚙️ Parámetros del modelo"):
-            model_temp = st.slider("Temperatura", min_value=0.0, max_value=2.0, value=0.3, step=0.1)
+        model_temp = st.slider("Temperatura", min_value=0.0, max_value=2.0, value=0.3, step=0.1)
 
         respuesta_audio = st.checkbox("Respuesta en audio", value=False)
         if respuesta_audio:
@@ -137,14 +136,12 @@ def main():
 
             cols_img = st.columns(2)
             with cols_img[0]:
-                with st.popover("📁 Subir"):
-                    st.file_uploader("Sube una imagen", type=["png", "jpg", "jpeg"], key="uploaded_img", on_change=add_image_to_messages)
+                st.file_uploader("Sube una imagen", type=["png", "jpg", "jpeg"], key="uploaded_img", on_change=add_image_to_messages)
 
             with cols_img[1]:
-                with st.popover("📸 Cámara"):
-                    activar_camara = st.checkbox("Activar cámara")
-                    if activar_camara:
-                        st.camera_input("Toma una foto", key="camera_img", on_change=add_image_to_messages)
+                activar_camara = st.checkbox("Activar cámara")
+                if activar_camara:
+                    st.camera_input("Toma una foto", key="camera_img", on_change=add_image_to_messages)
 
         st.write("### **🎤 Añadir un audio:**")
         audio_prompt = None
@@ -156,8 +153,6 @@ def main():
             st.session_state.prev_speech_hash = hash(speech_input)
             transcript = client.audio.transcriptions.create(model="whisper-1", file=("audio.wav", speech_input))
             audio_prompt = transcript.text
-
-    tooltip_text = "Por ejemplo, puedes preguntar: '¿Cuál es la capital de Francia?', '¿Cuántos años tiene la Tierra?' o 'Cuéntame un chiste'."
 
     if prompt := st.chat_input("¡Hola! Pregúntame lo que quieras...") or audio_prompt:
         st.session_state.messages.append({
@@ -184,5 +179,6 @@ def main():
             </audio>
             """
             st.markdown(audio_html, unsafe_allow_html=True)
+
 if __name__ == "__main__":
     main()

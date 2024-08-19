@@ -93,7 +93,7 @@ def main():
     with st.sidebar:
         st.divider()
         model = st.selectbox("Selecciona un modelo:", [
-            "gpt-4o-2024-05-13",
+            "gpt-4o-mini",
             "gpt-4-turbo",
             "gpt-3.5-turbo-16k",
             "gpt-4",
@@ -122,7 +122,7 @@ def main():
         st.button("🗑️ Reiniciar conversación", on_click=reset_conversation)
         st.divider()
 
-        if model in ["gpt-4o-2024-05-13", "gpt-4-turbo"]:
+        if model in ["gpt-4o-mini"]:
             st.write("### **🖼️ Añadir una imagen:**")
 
             def add_image_to_messages():

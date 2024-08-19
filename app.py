@@ -43,7 +43,7 @@ def stream_llm_response(client, model_params):
     response_message = ""
 
     for chunk in client.chat.completions.create(
-        model=model_params.get("model", "gpt-4o-2024-05-13"),
+        model=model_params.get("model", "gpt-4o-mini"),
         messages=st.session_state.messages,
         temperature=model_params.get("temperature", 0.3),
         max_tokens=4096,

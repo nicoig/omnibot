@@ -93,10 +93,6 @@ def main():
     with st.sidebar:
         st.divider()
         model = st.selectbox("Selecciona un modelo:", [
-            "o1-mini",
-            "o1-preview",
-            "o1-preview-2024-09-12",
-            "o1-mini-2024-09-12",
             "gpt-4o-mini",
             "gpt-4-turbo",
             "gpt-3.5-turbo-16k",

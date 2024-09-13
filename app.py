@@ -43,7 +43,7 @@ def stream_llm_response(client, model_params):
     response_message = ""
 
     for chunk in client.chat.completions.create(
-        model=model_params.get("model", "o1-mini"),
+        model=model_params.get("model", "gpt-4o-mini"),
         messages=st.session_state.messages,
         temperature=model_params.get("temperature", 0.3),
         max_tokens=4096,
@@ -94,6 +94,9 @@ def main():
         st.divider()
         model = st.selectbox("Selecciona un modelo:", [
             "o1-mini",
+            "o1-preview",
+            "o1-preview-2024-09-12",
+            "o1-mini-2024-09-12",
             "gpt-4o-mini",
             "gpt-4-turbo",
             "gpt-3.5-turbo-16k",
